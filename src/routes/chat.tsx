@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/app-shell";
+import { Markdown } from "@/components/markdown";
 import { CopyButton } from "@/components/output-panel";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -133,7 +134,11 @@ function ChatPage() {
                       : "whitespace-pre-wrap",
                   )}
                 >
-                  <p className="whitespace-pre-wrap">{m.content}</p>
+                  {m.role === "assistant" ? (
+                    <Markdown>{m.content}</Markdown>
+                  ) : (
+                    <p className="whitespace-pre-wrap">{m.content}</p>
+                  )}
                   {m.role === "assistant" && <CopyButton value={m.content} />}
                 </div>
                 {m.role === "user" && (
